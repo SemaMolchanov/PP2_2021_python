@@ -1,4 +1,5 @@
-my_command = input()
-o = my_command.replace('()', 'o')
-al = o.replace('(al)', 'al')
-print(al)
+class Solution:
+    def interpret(self, command: str) -> str:
+        o = command.replace('()', 'o')
+        al = o.replace('(al)', 'al')
+        return al
