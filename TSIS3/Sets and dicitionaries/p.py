@@ -8,9 +8,19 @@ while True:
     
 txt = ' '.join(lines)
 words = txt.split()
-d = dict()
-cnt, word = str(), str()
+pairs = set()
+pair = tuple()
+word, cnt = str(), str()
 for i in words:
-    cnt, word = words.count(i), i
-    d[cnt] = word
-print(d)
+    pair = (words.count(i), i)
+    pairs.add(pair)
+sorted_pairs = sorted(pairs)
+reversed_pairs = reversed(sorted_pairs)
+
+for j in reversed_pairs:
+    print(j[1])
+
+    
+
+
+
