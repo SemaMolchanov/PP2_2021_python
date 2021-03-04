@@ -6,9 +6,23 @@ cur_location = init_location
 def return_to_parent_dir():
     global cur_location
     if cur_location == init_location:
-        print('No parent directory for disk C directory')
+        print('no parent directory for disk C directory')
+        print('do you want to continue? (yes/no)')
+        option = input()
+        if option == 'yes':
+            start()
+        elif option == 'no':
+            print('Thank you. Good bue')
     else:
-        cur_location = os.path.abspath(os.pardir)
+        parent_dir = os.path.abspath(os.path.join(cur_location, os.pardir))
+        cur_location = parent_dir
+        print('your current location is', cur_location)
+        print('do you want to continue? (yes/no)')
+        option = input()
+        if option == 'yes':
+            start()
+        elif option == 'no':
+            print('Thank you. Good bue')
 
 def change_directory():
     global cur_location
@@ -24,9 +38,20 @@ def change_directory():
             os.chdir(os.path.join(cur_location, new_location))
             cur_location = os.path.join(cur_location, new_location)
             print ('your current location is', cur_location)
+            print('do you want to continue? (yes/no)')
+            option = input()
+            if option == 'yes':
+                start()
+            elif option == 'no':
+                print('Thank you. Good bue')
         else:
             print('this folder does not exist')
-    pass
+            print('do you want to continue? (yes/no)')
+            option = input()
+            if option == 'yes':
+                start()
+            elif option == 'no':
+                print('Thank you. Good bue')
 
 def rename_directory():
     print('enter the name you want the directory to be changed to')
@@ -53,7 +78,7 @@ def list_content():
 
 def add_file():
     print('''
-    Enter the name of the file you want to create in the following format
+    enter the name of the file you want to create in the following format
 
     file_name.extension''')
     default_data = str()
@@ -63,22 +88,38 @@ def add_file():
         with open(os.path.join(cur_location, file_name), 'a') as f:
             f.write(default_data)
             f.close()
+        print('do you want to continue? (yes/no)')
+        option = input()
+        if option == 'yes':
+            start()
+        elif option == 'no':
+            print('Thank you. Good bue')
     else:
-        ('Such a file already exists')
-    pass
+        ('such a file already exists')
+        print('do you want to continue? (yes/no)')
+        option = input()
+        if option == 'yes':
+            start()
+        elif option == 'no':
+            print('Thank you. Good bue')
 
 def add_dir():
-    print('Enter the name of the directory you want to create')
+    print('enter the name of the directory you want to create')
     global cur_location
     dir_name = input()
     if not os.path.exists(os.path.join(cur_location, dir_name)):
         os.mkdir(os.path.join(cur_location, dir_name))
     else:
-        print('Such a directory already exists')
+        print('such a directory already exists')
+        print('do you want to continue? (yes/no)')
+        option = input()
+        if option == 'yes':
+            start()
+        elif option == 'no':
+            print('Thank you. Good bue')
     pass
 
 def delete_file():
-
     pass
 
 def rename_file():
