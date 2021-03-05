@@ -56,8 +56,6 @@ def rename_directory():
         new_name = input()
         os.rename(os.path.join(cur_location, dir_name), os.path.join(cur_location, new_name))
         print('directory succesfuly renamed')
-        list_content()
-        print('such a directory does not exist')
         print('do you want to continue? (yes/no)')
         option = input()
         if option == 'yes':
@@ -75,7 +73,7 @@ def rename_directory():
 
 def print_files_number():
     files_number = len([name for name in os.listdir(cur_location) if os.path.isfile(os.path.join(cur_location, name))])
-    print(str(files_number) + ' in the current directory')
+    print('number of files in the current directory: ' + str(files_number))
     print('do you want to continue? (yes/no)')
     option = input()
     if option == 'yes':
@@ -83,11 +81,9 @@ def print_files_number():
     elif option == 'no':
         print('Thank you. Good bue')
 
-    pass
-
 def print_dirs_number():
     dirs_number = len([name for name in os.listdir(cur_location) if os.path.isdir(os.path.join(cur_location, name))])
-    print(str(dirs_number) + ' directories in the current directory')
+    print('number of directories in the current directory: ' + str(dirs_number))
     print('do you want to continue? (yes/no)')
     option = input()
     if option == 'yes':
@@ -121,6 +117,7 @@ def add_file():
         with open(os.path.join(cur_location, file_name), 'a') as f:
             f.write(default_data)
             f.close()
+        print('file created succesfully')
         print('do you want to continue? (yes/no)')
         option = input()
         if option == 'yes':
@@ -142,7 +139,7 @@ def add_dir():
     dir_name = input()
     if not os.path.exists(os.path.join(cur_location, dir_name)):
         os.mkdir(os.path.join(cur_location, dir_name))
-        print('''directory has been created''')
+        print('''directory created succesfully''')
         print('do you want to continue? (yes/no)')
         option = input()
         if option == 'yes':
@@ -187,7 +184,8 @@ def rename_file():
                         file_name.extension''')
     file_name = input()
     if os.path.exists(os.path.join(cur_location, file_name)):
-        print('enter the new name')
+        print('''enter the new name in the following format
+                        file_name.extension''')
         new_name = input()
         os.rename(os.path.join(cur_location, file_name), os.path.join(cur_location, new_name))
         print('file renamed succesfully')
@@ -212,11 +210,11 @@ def add_content():
                         file_name.extension''')
     file_name = input()
     if os.path.exists(os.path.join(cur_location, file_name)):
-        with open (os.path.join(cur_location, file_name), 'a') as file:
+        with open (os.path.join(cur_location, file_name), 'a') as f:
             print('enter data to write to the file')
             data = input()
-            file.write(data)
-            file.close
+            f.write(data)
+            f.close
         print('content added succesfully')
         print('do you want to continue? (yes/no)')
         option = input()
@@ -239,11 +237,11 @@ def rewrite_content():
                         file_name.extension''')
     file_name = input()
     if os.path.exists(os.path.join(cur_location, file_name)):
-        with open (os.path.join(cur_location, file_name), 'w') as file:
+        with open (os.path.join(cur_location, file_name), 'w') as f:
             print('enter data to write to the file')
             data = input()
-            file.write(data)
-            file.close
+            f.write(data)
+            f.close
         print('content added succesfully')
         print('do you want to continue? (yes/no)')
         option = input()
@@ -273,7 +271,7 @@ def options():
         press h to delete file
         press i to rename file
         press j to add content to file
-        prees k to rewrite content of the file
+        press k to rewrite content of the file
         press l to return to the parent directory''')
         option = input()
         if option == 'a':
