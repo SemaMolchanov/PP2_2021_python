@@ -1,10 +1,12 @@
+from itertools import islice
+
 def read_first_lines(file_name, n):
     with open(file_name, 'r') as f:
-        for i in range f.read().count('\n'):
-            print(f.readline())
-            
+        for line in islice(f, n):
+            print(line)
 
-read_first_lines('test.txt', 2)
+n = int(input())
+read_first_lines('test.txt', n)
 
 
 
