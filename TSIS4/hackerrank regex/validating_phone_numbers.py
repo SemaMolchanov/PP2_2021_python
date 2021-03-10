@@ -11,5 +11,4 @@ for string in my_list:
         print('YES')
     else:
         print('NO')
-    
 

@@ -1,5 +1,6 @@
-file_link = 'textToParse.txt'
+cur_file= 'textToParse.txt'
 
-with open(file_link, 'r') as f:
+
+with open(cur_file, 'r') as f:
     txt = f.read()
     print(txt)
