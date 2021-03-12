@@ -1,3 +1,3 @@
 import re
-m = re.search(r"([a-z0-9])\1+", input())
-print(m.group(1) if m else -1)
+n = re.search(r"([a-z0-9])\1+", input())
+print(n.group(1) if n else -1)
