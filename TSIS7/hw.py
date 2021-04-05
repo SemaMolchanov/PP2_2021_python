@@ -100,7 +100,7 @@ while not done:
 
     #leftmost digits
 
-    upper_coordinate, lower_coordinate = 105, 585
+    upper_coordinate, lower_coordinate = 105, 615
     digit = 1.00
     while (upper_coordinate < lower_coordinate):
         font = pygame.font.SysFont('Calibri', 25, False, False)
