@@ -24,7 +24,7 @@ n = 6
 a = 240
 
 for x in range(105, 826):
-    y = int(math.cos((x - 44)/720 * n * math.pi) * a + 345)
+    y = int(math.cos((x + 76)/720 * n * math.pi) * a + 345)
     cos_points.append([x, y])
 
 for x in range(105, 826):
@@ -95,6 +95,20 @@ while not done:
         l2 += 60
     
     digits = [1.00, 0.75, 0.50, 0.25, 0.00, -0.25, -0.50, -0.75, -1.00]
+
+    upper_digit, lower_digit = 105, 585
+    digit = 1.00
+    while (upper_digit < lower_digit):
+        font = pygame.font.SysFont('Calibri', 25, False, False)
+        text = font.render(str(digit), True, BLACK)
+        if digit < 0:
+            screen.blit(text, (15, upper_digit))
+        else:
+            screen.blit(text, (25, upper_digit))
+        upper_digit += 60
+        digit -= 0.25
+
+
     
     #sine and cosine lines
 
