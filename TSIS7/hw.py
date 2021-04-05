@@ -81,20 +81,26 @@ while not done:
 
     #horizontal scale
 
-    l, r = 105, 835
+    l1, r1 = 105, 835
     j = 0
-    while (l < r):
+    while (l1 < r1):
         if j % 2 == 0:
-            pygame.draw.line(screen, BLACK, [l, 75], [l, 90], 1)
-            pygame.draw.line(screen, BLACK, [l, 600], [l, 615], 1)
+            pygame.draw.line(screen, BLACK, [l1, 75], [l1, 90], 1)
+            pygame.draw.line(screen, BLACK, [l1, 600], [l1, 615], 1)
         elif j % 4 == 0:
-            pygame.draw.line(screen, BLACK, [l, 75], [l, 97], 1)
-            pygame.draw.line(screen, BLACK, [l, 593], [l, 615], 1)
+            pygame.draw.line(screen, BLACK, [l1, 75], [l1, 97], 1)
+            pygame.draw.line(screen, BLACK, [l1, 593], [l1, 615], 1)
         else:
-            pygame.draw.line(screen, BLACK, [l, 608], [l, 615], 1)
-            pygame.draw.line(screen, BLACK, [l, 75], [l, 82], 1)
+            pygame.draw.line(screen, BLACK, [l1, 608], [l1, 615], 1)
+            pygame.draw.line(screen, BLACK, [l1, 75], [l1, 82], 1)
         j += 1
-        l += 15
+        l1 += 15
+
+    l2, r2 = 105, 835
+    while (l2 < r2):
+        pygame.draw.line(screen, BLACK, [l2, 75], [l2, 97], 1)
+        pygame.draw.line(screen, BLACK, [l2, 593], [l2, 615], 1)
+        l2 += 60
 
     
     #sine and cosine lines
