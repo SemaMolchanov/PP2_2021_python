@@ -23,6 +23,10 @@ sin_points = []
 n = 6
 a = 240
 
+#the formula is correct but somehow line of the sine and line of the cosine
+#are being drawn vice versa
+
+
 for x in range(105, 826):
     y = int(math.cos((x + 76)/720 * n * math.pi) * a + 345)
     cos_points.append([x, y])
@@ -93,22 +97,35 @@ while not done:
         pygame.draw.line(screen, BLACK, [l2, 75], [l2, 97], 1)
         pygame.draw.line(screen, BLACK, [l2, 593], [l2, 615], 1)
         l2 += 60
-    
-    digits = [1.00, 0.75, 0.50, 0.25, 0.00, -0.25, -0.50, -0.75, -1.00]
 
-    upper_digit, lower_digit = 105, 585
+    #leftmost digits
+
+    upper_coordinate, lower_coordinate = 105, 585
     digit = 1.00
-    while (upper_digit < lower_digit):
+    while (upper_coordinate < lower_coordinate):
         font = pygame.font.SysFont('Calibri', 25, False, False)
         text = font.render(str(digit), True, BLACK)
         if digit < 0:
-            screen.blit(text, (15, upper_digit))
+            screen.blit(text, (15, upper_coordinate - 12))
         else:
-            screen.blit(text, (25, upper_digit))
-        upper_digit += 60
+            screen.blit(text, (25, upper_coordinate - 12))
+        upper_coordinate += 60
         digit -= 0.25
 
+    #radians
 
+    left, right = 105, 830
+    i = 0
+    radians = ['-3pi', '-5pi', '-2pi', '-3pi', '-pi', '-pi', '0', 'pi', 'pi', '3pi', '2pi', '5pi', '3pi']
+    while (left < right):
+        font = pygame.font.SysFont('Times New Roman', 25, False, False)
+        text = font.render(radians[i], True, BLACK)
+        if radians[i]  != '0':
+            screen.blit(text, (left - 19, 615))
+        else:
+            screen.blit(text, (left - 5, 615))
+        i += 1
+        left += 60
     
     #sine and cosine lines
 
