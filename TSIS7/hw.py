@@ -16,29 +16,21 @@ pygame.display.set_caption('function graph')
 
 done = False
 
-r_cos_points = []
-r_sin_points = []
-l_cos_points = []
-l_sin_points = []
+cos_points = []
+sin_points = []
 
-n = 3
+
+n = 6
 a = 240
 
-for x in range(105, 465):
-    y = int(math.cos(x/360 * n * math.pi) * a + 345)
-    r_cos_points.append([x, y])
+for x in range(105, 826):
+    y = int(math.cos((x - 44)/720 * n * math.pi) * a + 345)
+    cos_points.append([x, y])
 
-for x in range(105, 465):
-    y = int(math.sin(x/360 * n * math.pi) * a + 345)
-    r_sin_points.append([x, y])
+for x in range(105, 826):
+    y = int(math.sin((x - 44)/720 * n * math.pi) * a + 345)
+    sin_points.append([x, y])
 
-for x in range(465, 825):
-    y = int(math.cos(x/360 * n * math.pi) * a + 345)
-    l_cos_points.append([x, y])
-
-for x in range(465, 825):
-    y = int(math.sin(x/360 * n * math.pi) * a + 345)
-    l_sin_points.append([x, y])
 
 while not done:
     for event in pygame.event.get():
@@ -101,14 +93,13 @@ while not done:
         pygame.draw.line(screen, BLACK, [l2, 75], [l2, 97], 1)
         pygame.draw.line(screen, BLACK, [l2, 593], [l2, 615], 1)
         l2 += 60
-
+    
+    digits = [1.00, 0.75, 0.50, 0.25, 0.00, -0.25, -0.50, -0.75, -1.00]
     
     #sine and cosine lines
 
-    pygame.draw.lines(screen, BLUE, False, r_cos_points, 2)
-    pygame.draw.lines(screen, RED, False, r_sin_points, 2)
-    pygame.draw.lines(screen, BLUE, False, l_cos_points, 2)
-    pygame.draw.lines(screen, RED, False, l_sin_points, 2)
+    pygame.draw.lines(screen, BLUE, False, cos_points, 2)
+    pygame.draw.lines(screen, RED, False, sin_points, 2)
 
     pygame.display.flip()
 
