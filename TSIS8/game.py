@@ -19,7 +19,7 @@ WHITE = (255, 255, 255)
 #Other Variables for use in the program
 SCREEN_WIDTH = 400
 SCREEN_HEIGHT = 600
-SPEED = random.randint(1, 5)
+#SPEED = random.randint(1, 5)
 SCORE = 0
 BANK = 0
 
@@ -35,6 +35,9 @@ screen.fill(WHITE)
 pygame.display.set_caption("Game")
 
 
+#additional task from the tutorial: sound of the turn
+sound_of_turnung = pygame.mixer.music.load('enginesound.wav')
+
 done = False
 
 
@@ -47,7 +50,7 @@ class Enemy(pygame.sprite.Sprite):
 
     def move(self):
         global SCORE
-        self.rect.move_ip(0, SPEED)
+        self.rect.move_ip(0, random.randint(1, 5))
         if (self.rect.bottom > 600):
             SCORE += 1
             self.rect.top = 0
@@ -64,11 +67,14 @@ class Player(pygame.sprite.Sprite):
     def move(self):
         pressed_keys = pygame.key.get_pressed()
         if self.rect.left > 0:
-              if pressed_keys[K_LEFT]:
-                  self.rect.move_ip(-5, 0)
+            if pressed_keys[K_LEFT]:
+                self.rect.move_ip(-5, 0)
+                pygame.mixer.music.play(2)
         if self.rect.right < SCREEN_WIDTH:        
-              if pressed_keys[K_RIGHT]:
-                  self.rect.move_ip(5, 0)
+            if pressed_keys[K_RIGHT]:
+                self.rect.move_ip(5, 0)
+                pygame.mixer.music.play(2)
+
 
 P1 = Player()
 E1 = Enemy()            
@@ -83,7 +89,7 @@ class Coin(pygame.sprite.Sprite):
     def move(self):
         global BANK
         self.rect.move_ip(0, 5)
-        if self.rect.bottom > P1.rect.top and (self.rect.left < P1.rect.right or self.rect.right > P1.rect.left):
+        if (self.rect.left < P1.rect.right or self.rect.right > P1.rect.left) and self.rect.bottom > P1.rect.top:
             BANK += 1
             self.rect.top = 0
             self.rect.center = (random.randint(40, SCREEN_WIDTH - 40), 0)
@@ -99,6 +105,7 @@ class Coin(pygame.sprite.Sprite):
 #E1 = Enemy()
 C1 = Coin()
 
+#additional task from the tutorial: adding new enemy every 10 seconds
 CREATE_ENEMY = pygame.USEREVENT + 1
 pygame.time.set_timer(CREATE_ENEMY, 10000)
 
