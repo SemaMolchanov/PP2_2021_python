@@ -22,6 +22,7 @@ SCREEN_HEIGHT = 600
 SPEED = 5
 SCORE = 0
 BANK = 0
+#HEALTH = 3
 
 #Setting up Fonts
 font = pygame.font.SysFont("Verdana", 60)
@@ -138,10 +139,10 @@ while not done:
         '''elif event.type == CREATE_COIN:
             C1 = Coin()
             coins.add(C1)
-            all_sprites.add(C1)
+            all_sprites.add(C1)'''
 
 
-    if pygame.sprite.spritecollideany(P1, coins):
+    '''if pygame.sprite.spritecollideany(P1, coins):
         Points += 1
         for entity in coins:
             entity.kill()'''
@@ -154,8 +155,10 @@ while not done:
 
     scores = font_small.render(str(SCORE), True, BLACK)
     coins = font_small.render(str(BANK), True, BLACK)
+    #lives = font_small.render(str(HEALTH), True, BLACK)
     screen.blit(scores, (10, 10))
     screen.blit(coins, (370, 10))
+    #screen.blit(lives, (190, 10))
 
     #Moves and Re-draws all Sprites
     for entity in all_sprites:
@@ -174,7 +177,8 @@ while not done:
         for entity in all_sprites:
             entity.kill() 
         time.sleep(2)
-        done = True      
+        done = True  
+   
         
     pygame.display.flip()
     clock.tick(60)
