@@ -83,13 +83,14 @@ class Coin(pygame.sprite.Sprite):
     def move(self):
         global BANK
         self.rect.move_ip(0, 5)
-        if (self.rect.bottom > P1.rect.top and (self.rect.left < P1.rect.right or self.rect.right > P1.rect.left)):
+        if self.rect.bottom > P1.rect.top and (self.rect.left < P1.rect.right or self.rect.right > P1.rect.left):
             BANK += 1
             self.rect.top = 0
             self.rect.center = (random.randint(40, SCREEN_WIDTH - 40), 0)
-        if (self.rect.bottom > 600):
-            self.rect.top = 0
-            self.rect.center = (random.randint(40, SCREEN_WIDTH - 40), 0)
+        else:
+            if (self.rect.bottom > 600):
+                self.rect.top = 0
+                self.rect.center = (random.randint(40, SCREEN_WIDTH - 40), 0)
  
 
 
@@ -98,7 +99,8 @@ class Coin(pygame.sprite.Sprite):
 #E1 = Enemy()
 C1 = Coin()
 
-
+CREATE_ENEMY = pygame.USEREVENT + 1
+pygame.time.set_timer(CREATE_ENEMY, 10000)
 
 #Creating Sprites Groups
 enemies = pygame.sprite.Group()
@@ -112,18 +114,17 @@ all_sprites.add(C1)
 
 
 #Game Loop
-#while True:
 while not done:
       
     #Cycles through all events occuring  
     for event in pygame.event.get(): 
         if event.type == QUIT:
-            #pygame.quit()
-            #sys.exit()
             done = True
-        #elif event.type == KEYDOWN and key.type == K_ESCAPE:
-            #pygame.quit()
-            #sys.exit()
+        elif event.type == CREATE_ENEMY:
+            enemy = Enemy()
+            enemies.add(enemy)
+            all_sprites.add(enemy)
+
     
     screen.blit(background, (0,0))
 
@@ -137,14 +138,6 @@ while not done:
     for entity in all_sprites:
         screen.blit(entity.image, entity.rect)
         entity.move()
-
-    #to be run if collision occurs between Player and Coin
-    '''if (C1.rect.bottom > P1.rect.top):
-        C1.kill()
-        BANK += 1
-        C1 = Coin()
-        pygame.display.update()'''
-
        
     #To be run if collision occurs between Player and Enemy
     if pygame.sprite.spritecollideany(P1, enemies):
@@ -158,8 +151,6 @@ while not done:
         for entity in all_sprites:
             entity.kill() 
         time.sleep(2)
-        #pygame.quit()
-        #sys.exit()
         done = True      
         
     pygame.display.flip()
