@@ -19,7 +19,7 @@ WHITE = (255, 255, 255)
 #Other Variables for use in the program
 SCREEN_WIDTH = 400
 SCREEN_HEIGHT = 600
-#SPEED = random.randint(1, 5)
+SPEED = 5
 SCORE = 0
 BANK = 0
 
@@ -36,7 +36,7 @@ pygame.display.set_caption("Game")
 
 
 #additional task from the tutorial: sound of the turn
-sound_of_turnung = pygame.mixer.music.load('enginesound.wav')
+#sound_of_turnung = pygame.mixer.music.load('enginesound.wav')
 
 done = False
 
@@ -47,10 +47,11 @@ class Enemy(pygame.sprite.Sprite):
         self.image = pygame.image.load("Enemy.png")
         self.surf = pygame.Surface((42, 70))
         self.rect = self.surf.get_rect(center = (random.randint(40,SCREEN_WIDTH-40), 0))
+        self.speed = random.randint(1, 5)
 
     def move(self):
         global SCORE
-        self.rect.move_ip(0, random.randint(1, 5))
+        self.rect.move_ip(0, self.speed)
         if (self.rect.bottom > 600):
             SCORE += 1
             self.rect.top = 0
@@ -69,11 +70,9 @@ class Player(pygame.sprite.Sprite):
         if self.rect.left > 0:
             if pressed_keys[K_LEFT]:
                 self.rect.move_ip(-5, 0)
-                pygame.mixer.music.play(2)
         if self.rect.right < SCREEN_WIDTH:        
             if pressed_keys[K_RIGHT]:
                 self.rect.move_ip(5, 0)
-                pygame.mixer.music.play(2)
 
 
 P1 = Player()
@@ -88,8 +87,8 @@ class Coin(pygame.sprite.Sprite):
 
     def move(self):
         global BANK
-        self.rect.move_ip(0, 5)
-        if (self.rect.left < P1.rect.right or self.rect.right > P1.rect.left) and self.rect.bottom > P1.rect.top:
+        self.rect.move_ip(0, SPEED)
+        if self.rect.bottom > P1.rect.top and (self.rect.left < P1.rect.right or self.rect.right > P1.rect.left):
             BANK += 1
             self.rect.top = 0
             self.rect.center = (random.randint(40, SCREEN_WIDTH - 40), 0)
@@ -97,6 +96,7 @@ class Coin(pygame.sprite.Sprite):
             if (self.rect.bottom > 600):
                 self.rect.top = 0
                 self.rect.center = (random.randint(40, SCREEN_WIDTH - 40), 0)
+            
  
 
 
@@ -106,8 +106,12 @@ class Coin(pygame.sprite.Sprite):
 C1 = Coin()
 
 #additional task from the tutorial: adding new enemy every 10 seconds
+#not necessary
 CREATE_ENEMY = pygame.USEREVENT + 1
 pygame.time.set_timer(CREATE_ENEMY, 10000)
+'''CREATE_COIN = pygame.USEREVENT + 1
+pygame.time.set_timer(CREATE_COIN, 2000)'''
+
 
 #Creating Sprites Groups
 enemies = pygame.sprite.Group()
@@ -131,6 +135,18 @@ while not done:
             enemy = Enemy()
             enemies.add(enemy)
             all_sprites.add(enemy)
+        '''elif event.type == CREATE_COIN:
+            C1 = Coin()
+            coins.add(C1)
+            all_sprites.add(C1)
+
+
+    if pygame.sprite.spritecollideany(P1, coins):
+        Points += 1
+        for entity in coins:
+            entity.kill()'''
+
+
 
     
     screen.blit(background, (0,0))
