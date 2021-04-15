@@ -2,6 +2,7 @@ import pygame
 import random
 import time
 
+
 pygame.init()
 
 BLACK = [0, 0, 0]
@@ -26,17 +27,6 @@ radius = 5
 clock = pygame.time.Clock()
 
 class Snake:
-
-    '''у змейки есть:
-    -блоки (круглешки или квадратики) а именно:
-        -голова
-        -тело (хвост)
-    -размер (кол-во блоков включая голову)
-    -направление движения
-    -состояние (растет или нет)
-    -возможность перемещения по вертикали
-    -возможность перемещения по горизонтали'''
-
     def __init__(self, x , y):
         self.blocks = [[x, y]]
         self.size = 1
@@ -45,8 +35,6 @@ class Snake:
         self.is_growing = False
         self.radius = radius
         self.direction = 'right'
-
-    #рисуется полосатое тело и отдельным цветом (белым) голова
 
     def draw(self, tail_color):
         pygame.draw.circle(screen, YELLOW, (self.blocks[0][0], self.blocks[0][1]), self.radius)
@@ -75,7 +63,8 @@ class Snake:
         if self.blocks[0] in self.blocks[1:]:
             THE_END = True
 
-
+#class Apple(self):
+   # self.radius = radius
 
 snake1 = Snake(100, 100)
 snake2 = Snake(700, 500)
@@ -126,6 +115,24 @@ while not THE_END:
                 snake1.is_growing = True
             elif event.key == pygame.K_2:
                 snake2.is_growing = True
+
+    if snake1.blocks[0][0] < 0:
+        snake1.blocks[0][0] = SCREEN_WIDTH
+    if snake1.blocks[0][0] > SCREEN_WIDTH:
+        snake1.blocks[0][0] = 0
+    if snake1.blocks[0][1] < 0:
+        snake1.blocks[0][1] = SCREEN_HEIGHT
+    if snake1.blocks[0][1] > SCREEN_HEIGHT:
+        snake1.blocks[0][1] = 0
+    if snake2.blocks[0][0] < 0:
+        snake2.blocks[0][0] = SCREEN_WIDTH
+    if snake2.blocks[0][0] > SCREEN_WIDTH:
+        snake2.blocks[0][0] = 0
+    if snake2.blocks[0][1] < 0:
+        snake2.blocks[0][1] = SCREEN_HEIGHT
+    if snake2.blocks[0][1] > SCREEN_HEIGHT:
+        snake2.blocks[0][1] = 0
+
 
 
     if snake1.blocks[0] in snake2.blocks[:] or snake2.blocks[0] in snake1.blocks[:]:
