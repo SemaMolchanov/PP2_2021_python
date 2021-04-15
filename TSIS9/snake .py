@@ -21,11 +21,11 @@ THE_END = False
 
 displacement = 5
 radius = 5
-i = 1
+#i = 1
 
 clock = pygame.time.Clock()
 
-class Snake1:
+class Snake:
 
     '''у змейки есть:
     -блоки (круглешки или квадратики) а именно:
@@ -37,8 +37,8 @@ class Snake1:
     -возможность перемещения по вертикали
     -возможность перемещения по горизонтали'''
 
-    def __init__(self):
-        self.blocks = [[100, 100]]
+    def __init__(self, x , y):
+        self.blocks = [[x, y]]
         self.size = 1
         self.displacementX = displacement
         self.displacementY = 0
@@ -48,70 +48,10 @@ class Snake1:
 
     #рисуется полосатое тело и отдельным цветом (белым) голова
 
-    def draw(self):
-        global i
-        pygame.draw.circle(screen, WHITE, (self.blocks[0][0], self.blocks[0][1]), self.radius)
+    def draw(self, tail_color):
+        pygame.draw.circle(screen, YELLOW, (self.blocks[0][0], self.blocks[0][1]), self.radius)
         for block in self.blocks[1:]:
-            if i % 2 == 0:
-                 pygame.draw.circle(screen, YELLOW, block, self.radius)
-            elif i % 2 != 0:
-                pygame.draw.circle(screen, BLUE, block, self.radius)
-            i += 1
-        
-
-    def add_block(self):
-        self.size += 1
-        self.blocks.insert(0, [self.blocks[0][0] + self.displacementX, self.blocks[0][1] + self.displacementY])
-        self.is_growing = False
-
-    def move(self):
-        global THE_END
-
-        if self.is_growing:
-            self.add_block()
-
-        for j in range(self.size - 1, 0, -1):
-            self.blocks[j][0] = self.blocks[j - 1][0]
-            self.blocks[j][1] = self.blocks[j - 1][1]
-
-        self.blocks[0][0] += self.displacementX
-        self.blocks[0][1] += self.displacementY
-
-        if self.blocks[0] in self.blocks[1:]:
-            THE_END = True
-
-class Snake2:
-
-    '''у змейки есть:
-    -блоки (круглешки или квадратики) а именно:
-        -голова
-        -тело (хвост)
-    -размер (кол-во блоков включая голову)
-    -направление движения
-    -состояние (растет или нет)
-    -возможность перемещения по вертикали
-    -возможность перемещения по горизонтали'''
-
-    def __init__(self):
-        self.blocks = [[700, 500]]
-        self.size = 1
-        self.displacementX = -displacement
-        self.displacementY = 0
-        self.is_growing = False
-        self.radius = radius
-        self.direction = 'left'
-
-    #рисуется полосатое тело и отдельным цветом (белым) голова
-
-    def draw(self):
-        global i
-        pygame.draw.circle(screen, WHITE, (self.blocks[0][0], self.blocks[0][1]), self.radius)
-        for block in self.blocks[1:]:
-            if i % 2 == 0:
-                 pygame.draw.circle(screen, YELLOW, block, self.radius)
-            elif i % 2 != 0:
-                pygame.draw.circle(screen, RED, block, self.radius)
-            i += 1
+                pygame.draw.circle(screen, tail_color, block, self.radius)
         
 
     def add_block(self):
@@ -136,8 +76,9 @@ class Snake2:
             THE_END = True
 
 
-snake1 = Snake1()
-snake2 = Snake2()
+
+snake1 = Snake(100, 100)
+snake2 = Snake(700, 500)
 
 while not THE_END:
 
@@ -185,11 +126,15 @@ while not THE_END:
                 snake1.is_growing = True
             elif event.key == pygame.K_2:
                 snake2.is_growing = True
+
+
+    if snake1.blocks[0] in snake2.blocks[:] or snake2.blocks[0] in snake1.blocks[:]:
+        THE_END = True
     
-    #snake1.move()
-    #screen.fill(BLACK)
+    snake1.move()
+    screen.fill(BLACK)
     snake2.move()
     screen.fill(BLACK)
-    #snake1.draw()
-    snake2.draw()
+    snake1.draw(BLUE)
+    snake2.draw(RED)
     pygame.display.flip()
