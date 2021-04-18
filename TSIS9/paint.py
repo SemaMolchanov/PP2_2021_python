@@ -7,7 +7,52 @@ import pygame, random
 # Ax + By + C = 0
 # (x - x1) / (x2 - x1) = (y - y1) / (y2 - y1)
 
+#colours
+BLACK = [0, 0, 0]
+WHITE = [255, 255, 255]
+GRAY = [192, 192, 192]
+BROWN = [102, 51, 0]
+RED = [255, 0, 0]
+ORANGE = [255, 153, 51]
+YELLOW = [255, 255, 0]
+GREEN = [0, 255, 0]
+LIGHT_BLUE = [0, 255, 255]
+BLUE = [0, 0, 255]
+PURPLE = [255, 0, 255]
+PINK = [255, 0, 127]
+
+
+
 def drawLine(screen, start, end, width, color):
+    x1 = start[0]
+    y1 = start[1]
+    x2 = end[0]
+    y2 = end[1]
+
+    dx = abs(x1 - x2)
+    dy = abs(y1 - y2)
+
+    A = y2 - y1
+    B = x1 - x2
+    C = x2 * y1 - x1 * y2
+
+    if dx > dy:
+        if x1 > x2:
+            x1, x2 = x2, x1
+            y1, y2 = y2, y1
+
+        for x in range(x1, x2):
+            y = (-C - A * x) / B
+            pygame.draw.circle(screen, color, (x, y), width)
+    else:
+        if y1 > y2:
+            x1, x2 = x2, x1
+            y1, y2 = y2, y1
+        for y in range(y1, y2):
+            x = (-C - B * y) / A
+            pygame.draw.circle(screen, color, (x, y), width)
+
+def erase(screen, start, end, width, color = WHITE):
     x1 = start[0]
     y1 = start[1]
     x2 = end[0]
@@ -38,6 +83,7 @@ def drawLine(screen, start, end, width, color):
 
 def main():
     screen = pygame.display.set_mode((800, 600))
+    screen.fill(WHITE)
     mode = 'random'
     draw_on = False
     last_pos = (0, 0)
@@ -50,7 +96,9 @@ def main():
         'green': (0, 255, 0)
     }
 
+
     while True:
+
         pressed = pygame.key.get_pressed()
         alt_held = pressed[pygame.K_LALT] or pressed[pygame.K_RALT]
         ctrl_held = pressed[pygame.K_LCTRL] or pressed[pygame.K_RCTRL]
