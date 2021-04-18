@@ -133,34 +133,34 @@ while not THE_END:
                 THE_END = True
             elif event.key == pygame.K_DOWN and snake1.direction != 'up':
                 snake1.dx = 0
-                snake1.dy = SPEED
+                snake1.dy = snake1.speed #SPEED
                 snake1.direction = 'down'
             elif event.key == pygame.K_UP and snake1.direction != 'down':
                 snake1.dx = 0
-                snake1.dy = -SPEED
+                snake1.dy = -snake1.speed #SPEED
                 snake1.direction = 'up'
             elif event.key == pygame.K_LEFT and snake1.direction != 'right':
-                snake1.dx= -SPEED
+                snake1.dx= -snake1.speed #SPEED
                 snake1.dy = 0
                 snake1.direction = 'left'
             elif event.key == pygame.K_RIGHT and snake1.direction != 'left':
-                snake1.dx = SPEED
+                snake1.dx = snake1.speed #SPEED
                 snake1.dy = 0
                 snake1.direction = 'right'
             elif event.key == pygame.K_s and snake2.direction != 'up':
                 snake2.dx = 0
-                snake2.dy = SPEED
+                snake2.dy = snake2.speed #SPEED
                 snake2.direction = 'down'
             elif event.key == pygame.K_w and snake2.direction != 'down':
                 snake2.dx = 0
-                snake2.dy = -SPEED
+                snake2.dy = -snake2.speed #SPEED
                 snake2.direction = 'up'
             elif event.key == pygame.K_a and snake2.direction != 'right':
-                snake2.dx = -SPEED
+                snake2.dx = -snake2.speed #SPEED
                 snake2.dy = 0
                 snake2.direction = 'left'
             elif event.key == pygame.K_d and snake2.direction != 'left':
-                snake2.dx = SPEED
+                snake2.dx = snake2.speed #SPEED
                 snake2.dy = 0
                 snake2.direction = 'right'
             '''elif event.key == pygame.K_1:
