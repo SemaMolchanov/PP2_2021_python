@@ -24,13 +24,12 @@ PURPLE = [255, 0, 255]
 PINK = [255, 0, 127]
 
 class Button():
-    def __init__(self, color, x, y, width, height, text=''):
+    def __init__(self, color, x, y, width, height):
         self.color = color
         self.x = x
         self.y = y
         self.width = width
         self.height = height
-        self.text = text
 
     def draw(self, screen, outline = None):
         if outline:
@@ -38,10 +37,6 @@ class Button():
             
         pygame.draw.rect(screen, self.color, (self.x, self.y, self.width, self.height), 0)
         
-        if self.text != '':
-            font = pygame.font.SysFont("Verdana", 20)
-            text = font.render(self.text, True, BLACK)
-            screen.blit(text, (self.x + (self.width/2 - text.get_width()/2), self.y + (self.height/2 - text.get_height()/2)))
 
     def isOver(self, pos):
         if pos[0] > self.x and pos[0] < self.x + self.width:
@@ -91,7 +86,6 @@ def main():
     option = 'line'
     draw_on = False
     last_pos = (0, 0)
-    #color = (255, 128, 0)
     color = BLACK
     radius = 10
 
@@ -216,7 +210,6 @@ def main():
 
 
                 if mode == 'default':
-                    #color = (random.randrange(256), random.randrange(256), random.randrange(256))
                     color = BLACK
                 else:
                     color = colors[mode]
@@ -228,7 +221,6 @@ def main():
                 if draw_on:
                     drawLine(screen, last_pos, event.pos, radius, color)
                     pygame.display.update()
-                    # pygame.draw.circle(screen, color, event.pos, radius)
                 last_pos = event.pos
 
             if event.type == pygame.MOUSEBUTTONDOWN and option == 'rectangle':
@@ -270,7 +262,6 @@ def main():
                     mode = 'eraser'
                 
                 if mode == 'default':
-                    #color = (random.randrange(256), random.randrange(256), random.randrange(256))
                     color = BLACK
                 else:
                     color = colors[mode]
@@ -328,7 +319,6 @@ def main():
                     mode = 'eraser'
 
                 if mode == 'default':
-                    #color = (random.randrange(256), random.randrange(256), random.randrange(256))
                     color = BLACK
                 else:
                     color = colors[mode]

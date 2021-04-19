@@ -36,23 +36,14 @@ blue_score = font_small.render('BLUE SCORE:', True, BLACK)
 
 font_small = pygame.font.SysFont("Verdana", 20)
 
-#pygame.draw.rect(screen, BLACK, [30, 30, 1020, 660], 0)
-
 THE_END = False
 
 SPEED = 4
 radius = 10
-#i = 1
+
 
 clock = pygame.time.Clock()
 
-'''def game_over():
-    time.sleep(1)
-    gamezone.fill(RED)
-    gamezone.blit(game_over_sign, (30,250))
-    pygame.display.update()
-    time.sleep(2)
-    THE_END = True'''
 
 class Apple:
     def __init__(self):
@@ -88,7 +79,6 @@ class Snake:
 
     def add_block(self):
         self.size += 1
-        #self.blocks.insert(0, [self.blocks[0][0] + self.displacementX, self.blocks[0][1] + self.displacementY])
         self.blocks.append([0, 0])
         self.is_growing = False
 
@@ -106,7 +96,6 @@ class Snake:
         self.blocks[0][1] += self.dy
 
         if self.blocks[0] in self.blocks[1:]:
-            #game_over()
             THE_END = True
 
     def eat(self, apple):
@@ -163,28 +152,7 @@ while not THE_END:
                 snake2.dx = snake2.speed #SPEED
                 snake2.dy = 0
                 snake2.direction = 'right'
-            '''elif event.key == pygame.K_1:
-                snake1.is_growing = True
-            elif event.key == pygame.K_2:
-                snake2.is_growing = True'''
 
-
-    '''if snake1.blocks[0][0] < 0:
-        snake1.blocks[0][0] = SCREEN_WIDTH
-    if snake1.blocks[0][0] > SCREEN_WIDTH:
-        snake1.blocks[0][0] = 0
-    if snake1.blocks[0][1] < 0:
-        snake1.blocks[0][1] = SCREEN_HEIGHT
-    if snake1.blocks[0][1] > SCREEN_HEIGHT:
-        snake1.blocks[0][1] = 0
-    if snake2.blocks[0][0] < 0:
-        snake2.blocks[0][0] = SCREEN_WIDTH
-    if snake2.blocks[0][0] > SCREEN_WIDTH:
-        snake2.blocks[0][0] = 0
-    if snake2.blocks[0][1] < 0:
-        snake2.blocks[0][1] = SCREEN_HEIGHT
-    if snake2.blocks[0][1] > SCREEN_HEIGHT:
-        snake2.blocks[0][1] = 0'''
 
     if snake1.blocks[0][0] < 15 or snake1.blocks[0][0] > GAMEZONE_WIDTH:
         THE_END = True
