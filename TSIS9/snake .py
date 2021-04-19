@@ -1,7 +1,7 @@
 import pygame
 import random
 import time
-
+import json
 
 pygame.init()
 
@@ -228,9 +228,33 @@ while not THE_END:
 
     snake1.move()
     gamezone.fill(BLACK)
-    #snake2.move()
-    #gamezone.fill(BLACK)
+    snake2.move()
+    gamezone.fill(BLACK)
     snake1.draw(BLUE)
-    #snake2.draw(RED)
+    snake2.draw(RED)
     apple.draw()
+
+
+    snake_data = {
+        'blue snake' : {
+            'speed' : snake1.speed,
+            'size' : snake1.size,
+            'score' : snake1.score,
+        },
+        'red snake' : {
+            'speed': snake2.speed,
+            'size' : snake2.size,
+            'score': snake2.score,
+        },
+        'apple' : {
+            'x' : apple.x,
+            'y': apple.y,
+        }
+    }
+    snake_data_json = json.dumps(snake_data)
+
+    with open('snakedata.txt', 'w') as data:
+        data.write(snake_data_json)
+        data.close()
+
     pygame.display.flip()

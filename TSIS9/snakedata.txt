@@ -1,0 +1,1 @@
+{"blue snake": {"speed": 6, "size": 4, "score": 30}, "red snake": {"speed": 6, "size": 5, "score": 40}, "apple": {"x": 984, "y": 494}}
