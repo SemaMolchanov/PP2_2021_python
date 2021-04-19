@@ -36,7 +36,7 @@ class Button():
         pygame.draw.rect(screen, self.color, (self.x, self.y, self.width, self.height), 0)
         
         if self.text != '':
-            font = pygame.font.SysFont('Calibri', 20)
+            font = pygame.font.SysFont("Verdana", 20)
             text = font.render(self.text, True, BLACK)
             screen.blit(text, (self.x + (self.width/2 - text.get_width()/2), self.y + (self.height/2 - text.get_height()/2)))
 
@@ -79,20 +79,31 @@ def drawLine(screen, start, end, width, color):
 
 def main():
     screen = pygame.display.set_mode((800, 700))
+    pygame.display.set_caption('PAINT')
     screen.fill(WHITE)
 
     pygame.draw.line(screen, BLACK, [0, 100], [800, 100], 2)
 
-    mode = 'random'
+    mode = 'default'
     draw_on = False
     last_pos = (0, 0)
-    color = (255, 128, 0)
+    #color = (255, 128, 0)
+    color = BLACK
     radius = 10
 
     colors = {
-        'red': (255, 0, 0),
-        'blue': (0, 0, 255),
-        'green': (0, 255, 0)
+        'black pen' : (0, 0, 0),
+        'brown pen' : (153, 76, 0),
+        'gray pen' : (192, 192, 192),
+        'red pen': (255, 0, 0),
+        'orange pen' : (255, 127 , 0),
+        'yellow pen' : (255, 255, 0),
+        'green pen': (0, 255, 0),
+        'lightblue pen' : (0, 255, 255),
+        'blue pen': (0, 0, 255),
+        'purple pen' : (255, 0, 255),
+        'pink pen' : (255, 0, 127),
+        'eraser' : (255, 255, 255)
     }
 
     black_button = Button(BLACK, 100, 5, 80, 40)
@@ -136,19 +147,58 @@ def main():
                     return
                 if event.key == pygame.K_F4 and alt_held:
                     return
-                if event.key == pygame.K_r:
+                '''if event.key == pygame.K_r:
                     mode = 'red'
                 if event.key == pygame.K_b:
                     mode = 'blue'
                 if event.key == pygame.K_g:
-                    mode = 'green'
+                    mode = 'green'''
                 if event.key == pygame.K_UP:
                     radius += 1
                 if event.key == pygame.K_DOWN:
                     radius -= 1
             if event.type == pygame.MOUSEBUTTONDOWN:
-                if mode == 'random':
-                    color = (random.randrange(256), random.randrange(256), random.randrange(256))
+                if black_button.isOver(pos):
+                    draw_on = False
+                    mode = 'black pen'
+                if brown_button.isOver(pos):
+                    draw_on = False
+                    mode = 'brown pen'
+                if gray_button.isOver(pos):
+                    draw_on = False
+                    mode = 'gray pen'
+                if red_button.isOver(pos):
+                    draw_on = False
+                    mode = 'red pen'
+                if orange_button.isOver(pos):
+                    draw_on = False
+                    mode = 'orange pen'
+                if yellow_button.isOver(pos):
+                    draw_on = False
+                    mode = 'yellow pen'
+                if green_button.isOver(pos):
+                    draw_on = False
+                    mode = 'green pen'
+                if lightblue_button.isOver(pos):
+                    draw_on = False
+                    mode = 'lightblue pen'
+                if blue_button.isOver(pos):
+                    draw_on = False
+                    mode = 'blue pen'
+                if purple_button.isOver(pos):
+                    draw_on = False
+                    mode = 'purple pen'
+                if pink_button.isOver(pos):
+                    draw_on = False
+                    mode = 'pink pen'
+                if eraser_button.isOver(pos):
+                    draw_on = False
+                    mode = 'eraser'
+
+
+                if mode == 'default':
+                    #color = (random.randrange(256), random.randrange(256), random.randrange(256))
+                    color = BLACK
                 else:
                     color = colors[mode]
                 pygame.draw.circle(screen, color, event.pos, radius)
