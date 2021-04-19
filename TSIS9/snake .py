@@ -38,7 +38,7 @@ font_small = pygame.font.SysFont("Verdana", 20)
 
 THE_END = False
 
-SPEED = 4
+SPEED = 3
 radius = 10
 
 
@@ -172,14 +172,14 @@ while not THE_END:
     if snake1.eat(apple):
         snake1.score += 10
         if snake1.score % 3 == 0:
-            snake1.speed += 2
+            snake1.speed += 1
         snake1.is_growing = True
         apple.create()
 
     if snake2.eat(apple):
         snake2.score += 10
         if snake2.score % 3 == 0:
-            snake2.speed += 2
+            snake2.speed += 1
         snake2.is_growing = True
         apple.create()
 
